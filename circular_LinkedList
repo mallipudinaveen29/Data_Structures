@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct slist {
+    int data;
+    struct slist* next;
+};
+typedef struct slist node;
+node* create(node* first){
+    node* new,*prev;
+    int x;
+    printf("enter the data value(enter -1 to stop)\n");
+    scanf("%d",&x);
+    while(x!=-1){
+        new=(node*)malloc(sizeof(node*));
+        new->data=x;
+        if(first==NULL){
+            first=new;
+            prev=new;
+
+        }
+        else{
+            prev->next=new;
+            prev=new;
+
+        }
+        printf("enter data (enter -1 to stop)\n");
+        scanf("%d",&x);
+    }
+    prev->next=first;
+    return first;
+
+}
+void display(node* first){
+    node* temp=first;
+    if(first==NULL){
+        printf("\nno list to print\n");
+
+    }
+    else{
+        do{
+            printf("|%d|->",temp->data);
+            temp=temp->next;
+        }while(temp->next!=first);
+        printf("|%d|",temp->data);
+        printf("\n");
+        
+
+    }
+}
+void sort(node* first){
+    node* temp,*temp1,*temp2;
+    int x;
+    for(temp1=first;temp1->next!=first;temp1=temp1->next){
+        for(temp2=temp1->next;temp2!=first;temp2=temp2->next){
+            if (temp1->data >temp2->data)
+            {
+                x=temp1->data;
+                temp1->data=temp2->data;
+                temp2->data=x;
+            }
+        }
+    }
+}
+
+
+
+
+
+int main(){
+    node* head=NULL;
+    int ch,x,pos,n;
+    head=create(head);
+    display(head);
+    sort(head);
+    display(head);
+}
